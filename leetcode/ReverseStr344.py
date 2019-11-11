@@ -1,15 +1,6 @@
 import unittest
 
 
-class RsTestCase(unittest.TestCase):
-    def test_RS(self):
-        sol = Solution()
-        s = list('123456')
-        r = s[::-1]
-        sol.reverseString(s)
-        self.assertEqual(s, r)
-
-
 class Solution(object):
     def reverseString(self, s) -> None:
         n = len(s)
@@ -22,6 +13,15 @@ class Solution(object):
             # change index
             start += 1
             end -= 1
+
+
+class RsTestCase(unittest.TestCase):
+    def test_RS(self):
+        sol = Solution()
+        s = list('123456')
+        r = s[::-1]
+        sol.reverseString(s)
+        self.assertEqual(s, r)
 
 
 if __name__ == '__main__':
