@@ -58,12 +58,17 @@ class Solution:
         return out
 
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        """split the process to two parts:
+            the parts both lists have
+            the parts only one list and the carry
+        """
         # process spots occur in both of l1 and l2,
         # output is in 'out' parameter
         # return a tuple includes:
-        #   1, the longer list
-        #   2, the output's lst node
-        #   3, the sum_h part
+        #   the output
+        #   the longer list
+        #   the output's lst node
+        #   the sum_h part
         sum_h = 0
         ret = self.addSameSpotsTwolists(l1, l2, sum_h)
         out = ret[0]
