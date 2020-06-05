@@ -9,74 +9,31 @@ class ListNode:
 
 
 class Solution:
-    def addSameSpotsTwolists(self, cl1: ListNode, cl2: ListNode, sum_h):
-        out = None
-        pout = None
-        while (cl1 is not None) and (cl2 is not None):
-            sum = cl1.val + cl2.val + sum_h
-            if sum >= 10:
-                sum_h = sum // 10
-                sum_l = sum % 10
-            else:
-                sum_h = 0
-                sum_l = sum
-            if out is None:
-                out = ListNode(sum_l)
-            if pout is None:
-                pout = out
-            else:
-                pout.next = ListNode(sum_l)
-                pout = pout.next
-            # next
-            cl2 = cl2.next
-            cl1 = cl1.next
-        if cl1 is None:
-            return (out, cl2, pout, sum_h)
-        else:
-            return (out, cl1, pout, sum_h)
-
-    def addSinglelist(self, cl1: ListNode, sum_h, out: ListNode, pout: ListNode):
-        while cl1 is not None:
-            sum = cl1.val + sum_h
-            if sum >= 10:
-                sum_h = sum // 10
-                sum_l = sum % 10
-            else:
-                sum_h = 0
-                sum_l = sum
-            if out is None:
-                out = ListNode(sum_l)
-            if pout is None:
-                pout = out
-            else:
-                pout.next = ListNode(sum_l)
-                pout = pout.next
-            # next
-            cl1 = cl1.next
-        if sum_h > 0:
-            pout.next = ListNode(sum_h)
-        return out
-
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        """split the process to two parts:
-            the parts both lists have
-            the parts only one list and the carry
+        """The point is to process the carrier
         """
-        # process spots occur in both of l1 and l2,
-        # output is in 'out' parameter
-        # return a tuple includes:
-        #   the output
-        #   the longer list
-        #   the output's lst node
-        #   the sum_h part
-        sum_h = 0
-        ret = self.addSameSpotsTwolists(l1, l2, sum_h)
-        out = ret[0]
-        cl1 = ret[1]
-        pout = ret[2]
-        sum_h = ret[3]
-        # process following
-        out = self.addSinglelist(cl1, sum_h, out, pout)
+        carrier = 0
+        out = None
+        current = None
+        while ((l1 is not None) or (l2 is not None)):
+            x = l1.val if l1 is not None else 0
+            y = l2.val if l2 is not None else 0
+            sum = x + y + carrier
+            current_sum = sum % 10
+            carrier = sum // 10
+            if current is None:
+                current = ListNode(current_sum)
+            else:
+                current.next = ListNode(current_sum)
+                current = current.next
+            if out is None:
+                out = current
+            if l1 is not None:
+                l1 = l1.next
+            if l2 is not None:
+                l2 = l2.next
+        if carrier > 0:
+            current.next = ListNode(carrier)
         return out
 
 
